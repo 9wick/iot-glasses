@@ -2,7 +2,7 @@ var Obniz = require("obniz");
 
 class glasses {
 
-  setup(){
+  setup() {
     this.MODE_TYPES = {
       STAY: 0,
       RGBCOLOR: 1,
@@ -16,10 +16,18 @@ class glasses {
     };
 
     this.COLOR = {
-      WHITE: ()=>{return [180, 0]},
-      RED: ()=>{return [0, 1]},
-      BLUE: ()=>{return [240, 1]},
-      GREEN: ()=>{return [120, 1]}
+      WHITE: () => {
+        return [180, 0]
+      },
+      RED: () => {
+        return [0, 1]
+      },
+      BLUE: () => {
+        return [240, 1]
+      },
+      GREEN: () => {
+        return [120, 1]
+      }
     };
 
   }
@@ -31,11 +39,11 @@ class glasses {
     this.leds1 = undefined;
     this.leds2 = undefined;
     this.ready = false;
-    this._data = [[],[]];
+    this._data = [[], []];
     this.changeAllColor(this.COLOR.WHITE());
     this.obniz = new Obniz(obniz_id);
     this.color = this.COLOR.WHITE();
-    this.contrast =  0.1;
+    this.contrast = 0.1;
 
     this.obniz.onconnect = async () => {
       this.obniz.display.clear();
@@ -60,7 +68,7 @@ class glasses {
         this.RGBupdate();
       } else if (this.mode === this.MODE_TYPES.GRADATION) {
         this.gradationUpdate();
-      }else if (this.mode === this.MODE_TYPES.IOTLT) {
+      } else if (this.mode === this.MODE_TYPES.IOTLT) {
         this.iotltUpdate();
       }
       this.flush();
@@ -72,9 +80,10 @@ class glasses {
 
 
   changeMode(newMode) {
-    if( this.mode === newMode){
+    if (this.mode === newMode) {
       return;
     }
+    this.contrast = Math.max(this.contrast, 0.1);
     this.mode = newMode;
     this.frameCount = 0;
   }
@@ -87,12 +96,12 @@ class glasses {
     ]
   }
 
-  flush(){
-    let sendData0 = this._data[0].map((e)=>{
-      return hsv2rgb(e[0],e[1],this.contrast);
+  flush() {
+    let sendData0 = this._data[0].map((e) => {
+      return hsv2rgb(e[0], e[1], this.contrast);
     });
-    let sendData1 = this._data[1].map((e)=>{
-      return hsv2rgb(e[0],e[1],this.contrast);
+    let sendData1 = this._data[1].map((e) => {
+      return hsv2rgb(e[0], e[1], this.contrast);
 
     });
     this.leds1.rgbs(sendData0);
@@ -114,7 +123,7 @@ class glasses {
   gradationUpdate() {
 
     for (let i = 0; i < 8; i++) {
-      let c = [((this.frameCount+i)*20) %360, 1]
+      let c = [((this.frameCount + i) * 20) % 360, 1]
       this.setColor(this.EYE_TYPES.L, 0, i, c);
       this.setColor(this.EYE_TYPES.R, 0, i, c);
       this.setColor(this.EYE_TYPES.L, 1, i, c);
@@ -125,13 +134,13 @@ class glasses {
 
   }
 
-  iotltUpdate(){
-    this.iotltCount = this.iotltCount  || 0;
+  iotltUpdate() {
+    this.iotltCount = this.iotltCount || 0;
     this.changeAllColor(this.COLOR.WHITE());
     if (this.frameCount % (4) === 0) {
-      if(this.iotltCount === 0){
+      if (this.iotltCount === 0) {
         this.contrast = 0;
-      }else{
+      } else {
         this.contrast = 0.1;
         this.iotltCount = -1;
       }
@@ -141,12 +150,11 @@ class glasses {
 
   RGBupdate() {
 
-    this.RGBCount = this.RGBCount  || 0;
-    this.setColor(this.EYE_TYPES.L, 0, (this.frameCount-1) % 8, this.color);
-    this.setColor(this.EYE_TYPES.R, 0, (this.frameCount-1) % 8, this.color);
-    this.setColor(this.EYE_TYPES.L, 1, (this.frameCount-1) % 8, this.color);
-    this.setColor(this.EYE_TYPES.R, 1, (this.frameCount-1) % 8, this.color);
-
+    this.RGBCount = this.RGBCount || 0;
+    this.setColor(this.EYE_TYPES.L, 0, (this.frameCount - 1) % 8, this.color);
+    this.setColor(this.EYE_TYPES.R, 0, (this.frameCount - 1) % 8, this.color);
+    this.setColor(this.EYE_TYPES.L, 1, (this.frameCount - 1) % 8, this.color);
+    this.setColor(this.EYE_TYPES.R, 1, (this.frameCount - 1) % 8, this.color);
 
 
     if (this.frameCount % (8 * 2) === 0) {
@@ -154,7 +162,7 @@ class glasses {
       if (this.RGBCount === 0) {
         this.color = this.COLOR.RED();
       } else if (this.RGBCount === 1) {
-        this.color =this.COLOR.BLUE();
+        this.color = this.COLOR.BLUE();
       } else if (this.RGBCount === 2) {
         this.color = this.COLOR.GREEN();
       } else {
