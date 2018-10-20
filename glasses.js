@@ -54,27 +54,25 @@ class glasses {
       await this.obniz.wait(500);
       this.flush();
       this.changeMode(this.MODE_TYPES.IOTLT);
-      this.ready = true;
+
+      this.obniz.repeat(() => {
+
+        if (this.mode === this.MODE_TYPES.STAY) {
+          this.stayUpdate();
+        } else if (this.mode === this.MODE_TYPES.RGBCOLOR) {
+          this.RGBupdate();
+        } else if (this.mode === this.MODE_TYPES.GRADATION) {
+          this.gradationUpdate();
+        } else if (this.mode === this.MODE_TYPES.IOTLT) {
+          this.iotltUpdate();
+        }
+        this.flush();
+
+        this.frameCount++;
+      }, 100)
     };
 
-    this.obniz.repeat(() => {
-      if (!this.ready) {
-        return
-      }
 
-      if (this.mode === this.MODE_TYPES.STAY) {
-        this.stayUpdate();
-      } else if (this.mode === this.MODE_TYPES.RGBCOLOR) {
-        this.RGBupdate();
-      } else if (this.mode === this.MODE_TYPES.GRADATION) {
-        this.gradationUpdate();
-      } else if (this.mode === this.MODE_TYPES.IOTLT) {
-        this.iotltUpdate();
-      }
-      this.flush();
-
-      this.frameCount++;
-    }, 100)
 
   }
 
