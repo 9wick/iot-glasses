@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IoTメガネ</title>
+</head>
+<body>
+  <h1>IoTメガネ</h1>
+  <form class="form">
+    <input class="input" autofocus>
+    <input class="submit" type="submit">
+  </form><br/>
+  <input type="button" onclick="send('青色にかえて')" value="青色にかえて">
+  <input type="button" onclick="send('赤色にかえて')" value="赤色にかえて">
+  <input type="button" onclick="send('緑色にかえて')" value="緑色にかえて">
+  <input type="button" onclick="send('白色にかえて')" value="白色にかえて">
+  <input type="button" onclick="send('グラデーションにかえて')" value="グラデーションにかえて">
+  <input type="button" onclick="send('色を順番にまわして')" value="色を順番にまわして">
+  <input type="button" onclick="send('明るくして')" value="明るくして">
+  <input type="button" onclick="send('暗くして')" value="暗くして">
+
+  <ul class="messages"></ul>
+  <script src="client.js"></script>
+</body>
+</html>
