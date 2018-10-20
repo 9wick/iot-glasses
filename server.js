@@ -27,6 +27,7 @@ app.use(serveStatic(`${__dirname}/public`));
 let glasses = new Glasses("25800064");
 
 app.ws('/', (ws, req) => {
+  console.log("connection " + connects.length);
   connects.push(ws);
 
   ws.on('message', message => {
@@ -75,6 +76,7 @@ app.ws('/', (ws, req) => {
     connects = connects.filter(conn => {
       return (conn === ws) ? false : true;
     });
+    console.log("connection " + connects.length);
   });
 });
 
