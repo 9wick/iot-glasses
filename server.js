@@ -31,7 +31,7 @@ app.ws('/', (ws, req) => {
   connects.push(ws);
 
   ws.on('message', message => {
-    console.log('Received -', message);
+    // console.log('Received -', message);
     if(message.indexOf("グラデーション") >= 0 || message.indexOf("秋葉原") >= 0){
       glasses.changeMode(glasses.MODE_TYPES.GRADATION);
       message += " ###obniz### グラデーションにするよ！"
