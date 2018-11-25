@@ -1,23 +1,14 @@
 const express     = require('express');
 const app         = express();
-const expressWs   = require('express-ws')(app);
 const morgan      = require('morgan');
 const compression = require('compression');
 const serveStatic = require('serve-static');
-const basicAuth   = require('basic-auth-connect');
 const Glasses = require("./glasses");
 
-
-const user = process.env.USER;
-const pass = process.env.PASS;
 
 let connects = [];
 
 app.set('port', process.env.PORT || 3000);
-
-if (user && pass) {
-  app.use(basicAuth(user, pass));
-}
 
 app.use(morgan('dev'));
 app.use(compression());
