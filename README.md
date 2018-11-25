@@ -7,6 +7,11 @@ obnizを使った光るメガネです
 [LTした時の様子](https://www.instagram.com/p/BpO6gDLDPC0/?utm_source=ig_web_button_share_sheet
 )
 
+
+WebのUIはこんなのです
+
+![image](https://i.gyazo.com/e4df92387d745a55806f8aa3a490a048.gif)
+
 ## 設定
 
 obnizのIDだけ自分の持っているものに変更する必要があるので、
