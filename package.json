@@ -9,5 +9,9 @@
     "morgan": "^1.7.0",
     "obniz": "^1.12.2",
     "serve-static": "^1.11.1"
+  },
+  "engines": {
+    "node": "8.9.x",
+    "npm": "6.5.x"
   }
 }

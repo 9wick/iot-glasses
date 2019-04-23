@@ -15,7 +15,7 @@ app.use(compression());
 app.use(serveStatic(`${__dirname}/public`));
 
 
-let glasses = new Glasses("YOUR_OBNIZ_ID");
+let glasses = new Glasses("25800064");
 
 app.ws('/', (ws, req) => {
   console.log("connection " + connects.length);
