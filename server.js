@@ -4,7 +4,7 @@ const morgan      = require('morgan');
 const compression = require('compression');
 const serveStatic = require('serve-static');
 const Glasses = require("./glasses");
-
+var expressWs = require('express-ws')(app);
 
 let connects = [];
 
